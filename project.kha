@@ -1,17 +1,31 @@
 {
-"format": 1,
-"game":
-{
-"name": "VelvetWorm",
-"width": 640,
-"height": 480
-},
-"assets":
-[
-
-],
-"rooms":
-[
-
-]
+	"format": 1,
+	"game":
+	{
+		"name": "VelvetWorm",
+		"width": 640,
+		"height": 480
+	},
+	"assets":
+	[
+		{
+			"id": "eaf61430-2633-11e3-8224-0800200c9a66",
+			"type": "blob",
+			"file": "Arial14.kravur",
+			"name": "Arial14.kravur"
+		}
+	],
+	"rooms":
+	[
+		{
+			"id" : "f1e85690-2633-11e3-8224-0800200c9a66",
+			"name": "level1",
+			"parent": null,
+			"neighbours": [],
+			"assets":
+			[
+				"eaf61430-2633-11e3-8224-0800200c9a66"
+			]
+		}
+	]
 }

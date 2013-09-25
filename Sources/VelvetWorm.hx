@@ -8,8 +8,11 @@
 
 package;
 
+import kha.Configuration;
 import kha.Direction;
+import kha.FontStyle;
 import kha.Game;
+import kha.LoadingScreen;
 import kha.Painter;
 import kha.Sprite;
 import kha.Image;
@@ -54,12 +57,13 @@ class VelvetWorm extends Game {
 	}
 	
 	override public function init(): Void {
-		afterLoad();
+		Configuration.setScreen(new LoadingScreen());
+		Loader.the.loadRoom("level1", afterLoad);
 	}
 	
 	public function afterLoad(): Void {
 		newGame();
-		
+		Configuration.setScreen(this);
 		initialized = true;
 	}
 	
@@ -147,6 +151,7 @@ class VelvetWorm extends Game {
 	override public function render(painter : Painter) : Void {
 		if (!initialized) return; // Cancel if game has not been started yet
 		
+		painter.setFont(Loader.the.loadFont("Arial", new FontStyle(false, false, false), 14));
 		level.render(painter);
 		worm.render(painter);
 		bonus.render(painter);

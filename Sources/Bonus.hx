@@ -1,5 +1,6 @@
 package;
 
+import kha.Color;
 import kha.Painter;
 
 //
@@ -33,10 +34,10 @@ class Bonus {
 		var TILE_WIDTH : Int = VelvetWorm.TILE_WIDTH ;
 		var TILE_HEIGHT: Int = VelvetWorm.TILE_HEIGHT;
 		
-		painter.setColor(255, 255, 255);
+		painter.setColor(Color.fromBytes(255, 255, 255));
 		painter.fillRect(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		
-		painter.setColor(0, 0, 0);
+		painter.setColor(Color.fromBytes(0, 0, 0));
 		painter.drawString(Std.string(number), x * TILE_WIDTH, y * TILE_HEIGHT);
 	}
 }
