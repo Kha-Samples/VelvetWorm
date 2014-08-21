@@ -1,7 +1,7 @@
 package;
 
 import kha.Color;
-import kha.Painter;
+import kha.graphics2.Graphics;
 
 //
 // Bonus
@@ -27,17 +27,17 @@ class Bonus {
 		// Nothing to do.
 	}
 	
-	public function render(painter: Painter): Void {
+	public function render(g: Graphics): Void {
 		// Draw the bonus.
 		// A rectangle with a number in it.
 		
 		var TILE_WIDTH : Int = VelvetWorm.TILE_WIDTH ;
 		var TILE_HEIGHT: Int = VelvetWorm.TILE_HEIGHT;
 		
-		painter.setColor(Color.fromBytes(255, 255, 255));
-		painter.fillRect(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		g.color = Color.White;
+		g.fillRect(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		
-		painter.setColor(Color.fromBytes(0, 0, 0));
-		painter.drawString(Std.string(number), x * TILE_WIDTH, y * TILE_HEIGHT);
+		g.color = Color.Black;
+		g.drawString(Std.string(number), x * TILE_WIDTH, y * TILE_HEIGHT);
 	}
 }

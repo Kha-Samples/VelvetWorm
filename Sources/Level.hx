@@ -1,6 +1,6 @@
 package;
 
-import kha.Painter;
+import kha.graphics2.Graphics;
 
 //
 // Level
@@ -28,7 +28,7 @@ class Level {
 		return false;
 	}
 	
-	public function render(painter: Painter) {
+	public function render(g: Graphics) {
 		// TODO
 	}
 }

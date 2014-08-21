@@ -1,8 +1,8 @@
 package;
 
 import kha.Color;
-import kha.Painter;
 import kha.Direction;
+import kha.graphics2.Graphics;
 
 //
 // Part
@@ -34,12 +34,12 @@ private class Part {
 		}
 	}
 	
-	public function render(painter: Painter): Void {
+	public function render(g: Graphics): Void {
 		var TILE_WIDTH : Int = VelvetWorm.TILE_WIDTH ;
 		var TILE_HEIGHT: Int = VelvetWorm.TILE_HEIGHT;
 		
-		painter.setColor(Color.fromBytes(255, 255, 255));
-		painter.fillRect(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		g.color = Color.White;
+		g.fillRect(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 	}
 }
 
@@ -160,9 +160,9 @@ class Worm {
 	}
 	
 	// render(): Draw all parts of the snake
-	public function render(painter: Painter): Void {
+	public function render(g: Graphics): Void {
 		for (i in 0 ... parts.length) {
-			parts[i].render(painter);
+			parts[i].render(g);
 		}
 	}
 	

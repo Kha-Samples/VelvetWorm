@@ -11,9 +11,10 @@ package;
 import kha.Configuration;
 import kha.Direction;
 import kha.FontStyle;
+import kha.Framebuffer;
 import kha.Game;
 import kha.LoadingScreen;
-import kha.Painter;
+import kha.Scaler;
 import kha.Sprite;
 import kha.Image;
 import kha.Loader;
@@ -29,6 +30,8 @@ class VelvetWorm extends Game {
 	static public var TILE_WIDTH  = 20;
 	static public var TILE_HEIGHT = 20;
 	
+	var backbuffer: Image;
+	
 	// Game objects and controls
 	var worm: Worm;
 	var bonus: Bonus;
@@ -40,6 +43,7 @@ class VelvetWorm extends Game {
 	
 	// Random number generator
 	var rand_seed: Int;
+	
 	private function rand(range: Int) : Int {
 		rand_seed = rand_seed * 37 + 13;
 		return (rand_seed & 0xFFFFFF) % range;
@@ -57,6 +61,7 @@ class VelvetWorm extends Game {
 	}
 	
 	override public function init(): Void {
+		backbuffer = Image.createRenderTarget(640, 480);
 		Configuration.setScreen(new LoadingScreen());
 		Loader.the.loadRoom("level1", afterLoad);
 	}
@@ -148,13 +153,20 @@ class VelvetWorm extends Game {
 	}
 	
 	// render(): Draw snake, bonus, and level
-	override public function render(painter : Painter) : Void {
+	override public function render(frame: Framebuffer): Void {
 		if (!initialized) return; // Cancel if game has not been started yet
 		
-		painter.setFont(Loader.the.loadFont("Arial", new FontStyle(false, false, false), 14));
-		level.render(painter);
-		worm.render(painter);
-		bonus.render(painter);
+		var g = backbuffer.g2;
+		g.begin();
+		g.font = Loader.the.loadFont("Arial", new FontStyle(false, false, false), 14);
+		level.render(g);
+		worm.render(g);
+		bonus.render(g);
+		g.end();
+		
+		startRender(frame);
+		Scaler.scale(backbuffer, frame, kha.Sys.screenRotation);
+		endRender(frame);
 	}
 	
 	//
