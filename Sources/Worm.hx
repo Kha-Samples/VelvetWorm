@@ -1,7 +1,6 @@
 package;
 
 import kha.Color;
-import kha.Direction;
 import kha.graphics2.Graphics;
 
 //

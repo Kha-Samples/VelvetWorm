@@ -9,13 +9,11 @@
 package;
 
 import kha.Configuration;
-import kha.Direction;
 import kha.FontStyle;
 import kha.Framebuffer;
 import kha.Game;
 import kha.LoadingScreen;
 import kha.Scaler;
-import kha.Sprite;
 import kha.Image;
 import kha.Loader;
 import kha.Button;
