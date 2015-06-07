@@ -8,6 +8,7 @@
 
 package;
 
+import kha.Color;
 import kha.Configuration;
 import kha.FontStyle;
 import kha.Framebuffer;
@@ -156,6 +157,7 @@ class VelvetWorm extends Game {
 		
 		var g = backbuffer.g2;
 		g.begin();
+		g.clear(Color.Black);
 		g.font = Loader.the.loadFont("Arial", new FontStyle(false, false, false), 14);
 		level.render(g);
 		worm.render(g);
