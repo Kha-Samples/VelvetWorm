@@ -1,6 +1,6 @@
 package;
 
-import kha.Button;
+import kha.input.KeyCode;
 
 //
 // Controls
@@ -23,17 +23,17 @@ class Controls {
 		down  = false;
 	}
 	
-	public function buttonDown(button: Button): Void {
-		if (button == Button.LEFT ) left  = true;
-		if (button == Button.RIGHT) right = true;
-		if (button == Button.UP   ) up    = true;
-		if (button == Button.DOWN ) down  = true;
+	public function buttonDown(button: KeyCode): Void {
+		if (button == Left ) left  = true;
+		if (button == Right) right = true;
+		if (button == Up   ) up    = true;
+		if (button == Down ) down  = true;
 	}
 	
-	public function buttonUp(button: Button): Void {
-		if (button == Button.LEFT ) left  = false;
-		if (button == Button.RIGHT) right = false;
-		if (button == Button.UP   ) up    = false;
-		if (button == Button.DOWN ) down  = false;
+	public function buttonUp(button: KeyCode): Void {
+		if (button == Left ) left  = false;
+		if (button == Right) right = false;
+		if (button == Up   ) up    = false;
+		if (button == Down ) down  = false;
 	}
 }

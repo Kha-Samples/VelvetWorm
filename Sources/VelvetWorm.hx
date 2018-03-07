@@ -8,24 +8,23 @@
 
 package;
 
+import kha.Assets;
 import kha.Color;
-import kha.Configuration;
 import kha.FontStyle;
 import kha.Framebuffer;
-import kha.Game;
-import kha.LoadingScreen;
-import kha.Scaler;
 import kha.Image;
-import kha.Loader;
-import kha.Button;
-import kha.Rectangle;
+import kha.input.Keyboard;
+import kha.input.KeyCode;
+import kha.Scaler;
+import kha.Scheduler;
+import kha.System;
 
 //
 // VelvetWorm
 //
 // The game class. Controls everything for this game.
 //
-class VelvetWorm extends Game {
+class VelvetWorm {
 	static public var TILE_WIDTH  = 20;
 	static public var TILE_HEIGHT = 20;
 	
@@ -49,25 +48,22 @@ class VelvetWorm extends Game {
 	}
 	
 	public function new() {
-		super("Velvet Worm", false);
-		
 		worm    = new Worm();
 		bonus    = new Bonus();
 		level    = new Level();
 		controls = new Controls();
 		
 		initialized = false;
-	}
 	
-	override public function init(): Void {
 		backbuffer = Image.createRenderTarget(640, 480);
-		Configuration.setScreen(new LoadingScreen());
-		Loader.the.loadRoom("level1", afterLoad);
+		Assets.loadEverything(afterLoad);
 	}
 	
-	public function afterLoad(): Void {
+	function afterLoad(): Void {
 		newGame();
-		Configuration.setScreen(this);
+		System.notifyOnRender(render);
+		Scheduler.addTimeTask(update, 0, 1 / 60);
+		Keyboard.get().notify(buttonDown, buttonUp, null);
 		initialized = true;
 	}
 	
@@ -132,7 +128,7 @@ class VelvetWorm extends Game {
 		rand_seed = 17;
 	}
 	
-	override public function update() : Void {
+	public function update() : Void {
 		if (!initialized) return; // Cancel if game has not been started yet
 		
 		worm.update(controls, level);
@@ -152,30 +148,32 @@ class VelvetWorm extends Game {
 	}
 	
 	// render(): Draw snake, bonus, and level
-	override public function render(frame: Framebuffer): Void {
+	public function render(frame: Framebuffer): Void {
 		if (!initialized) return; // Cancel if game has not been started yet
 		
 		var g = backbuffer.g2;
 		g.begin();
 		g.clear(Color.Black);
-		g.font = Loader.the.loadFont("Arial", new FontStyle(false, false, false), 14);
+		g.font = Assets.fonts.arial;
+		g.fontSize = 14;
 		level.render(g);
 		worm.render(g);
 		bonus.render(g);
 		g.end();
 		
-		startRender(frame);
-		Scaler.scale(backbuffer, frame, kha.Sys.screenRotation);
-		endRender(frame);
+		frame.g2.begin();
+		Scaler.scale(backbuffer, frame, System.screenRotation);
+		frame.g2.end();
 	}
 	
 	//
 	// Controls
 	//
-	override public function buttonDown(button: Button): Void {
+	function buttonDown(button: KeyCode): Void {
 		controls.buttonDown(button);
 	}
-	override public function buttonUp(button: Button): Void {
+	
+	function buttonUp(button: KeyCode): Void {
 		controls.buttonUp(button);
 	}
 }

@@ -1,10 +1,11 @@
 package;
 
-import kha.Starter;
+import kha.System;
 
 class Main {
 	public static function main() {
-		var starter = new Starter();
-		starter.start(new VelvetWorm());
+		System.init({width: 640, height: 480, title: "Velvet Worm"}, function () {
+			new VelvetWorm();
+		});
 	}
 }
